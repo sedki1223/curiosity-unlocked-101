@@ -1,321 +1,318 @@
+
 import Image from "next/image";
 import Link from "next/link";
-import CuriosityExplorer from "@/components/CuriosityExplorer";
+import { getLessonsByTopic } from "@/lib/api";
 
-const paths = [
+export const dynamic = "force-dynamic";
+
+const principles = [
   {
-    label: "SPACE",
-    title: "Follow the impossible.",
-    text: "Black holes, stars, planets, and the strange rules that run the universe.",
-    tone: "violet",
+    number: "01",
+    title: "Start with a question.",
+    description:
+      "Begin with something you genuinely want to understand, not a list of facts to memorize.",
   },
   {
-    label: "EVERYDAY SCIENCE",
-    title: "Look closer.",
-    text: "The hidden science inside the objects and habits you barely notice.",
-    tone: "cyan",
+    number: "02",
+    title: "Picture what is happening.",
+    description:
+      "Build a mental model of the mechanism before getting buried in technical language.",
   },
   {
-    label: "HOW THINGS WORK",
-    title: "Nothing is really simple.",
-    text: "Machines, systems, technology, and the mechanisms behind familiar things.",
-    tone: "amber",
+    number: "03",
+    title: "Follow the explanation.",
+    description:
+      "Connect the pieces, understand the science, and leave ready to ask another question.",
   },
 ];
 
-const trail = [
-  { number: "01", title: "Start with a question", text: "Something in the world bothers your brain just enough to ask why." },
-  { number: "02", title: "Build the picture", text: "We turn the invisible mechanism into something you can actually imagine." },
-  { number: "03", title: "Understand the why", text: "The real science arrives after the mental picture already makes sense." },
-  { number: "04", title: "Keep the question alive", text: "One answer should leave you with another thing worth noticing." },
-];
+export default async function HomePage() {
+  let lessons: Awaited<ReturnType<typeof getLessonsByTopic>> = [];
+  let lessonsAvailable = false;
 
-export default function HomePage() {
+  try {
+    const result = await getLessonsByTopic("black-holes");
+    lessons = result.filter((lesson) => lesson.status === "published");
+    lessonsAvailable = true;
+  } catch {
+    lessons = [];
+  }
+
+  const featuredLessons = lessons.slice(0, 3);
+
   return (
-    <div className="relative overflow-hidden">
-      <div className="grid-fade pointer-events-none absolute inset-x-0 top-0 h-[760px]" />
-      <div className="ambient-orb absolute -left-44 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/[0.07]" />
-      <div className="ambient-orb absolute -right-44 top-8 h-[34rem] w-[34rem] rounded-full bg-violet-400/[0.07]" />
+    <div className="overflow-hidden bg-[#101312] text-[#f0efe7]">
+      <section className="relative border-b border-white/10 px-5 sm:px-8 lg:px-12">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 top-0 h-[34rem] w-[34rem] rounded-full bg-[#a8f2ed]/[0.07] blur-3xl"
+        />
 
-      <main>
-        <section className="relative mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-12 px-5 pb-20 pt-12 sm:px-8 lg:grid-cols-[.92fr_1.08fr] lg:px-10 lg:py-16">
-          <div className="hero-copy relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-              <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-cyan-300" />
-              Curiosity, unlocked.
-            </div>
+        <div className="relative mx-auto grid min-h-[650px] max-w-7xl items-center gap-8 py-14 sm:py-20 lg:min-h-[740px] lg:grid-cols-[1.05fr_.95fr] lg:gap-12">
+          <div className="relative z-10">
+            <p className="editorial-label">
+              <span className="text-[#a8f2ed]">Curiosity Unlocked 101</span>
+              <span>/</span>
+              Science, explained
+            </p>
 
-            <h1 className="mt-7 text-[3.4rem] font-semibold leading-[.92] tracking-[-0.06em] text-white sm:text-6xl lg:text-[6.2rem]">
+            <h1 className="mt-8 max-w-4xl text-5xl font-black leading-[0.94] tracking-[-0.065em] sm:text-7xl lg:text-[5.8rem]">
               The world is stranger
-              <span className="block bg-gradient-to-r from-cyan-100 via-white to-violet-200 bg-clip-text text-transparent">
+              <span className="block text-[#a8f2ed]">
                 when you look closer.
               </span>
             </h1>
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
-              CU101 turns the little “wait… how?” moments hiding in everyday life and science into things you can actually picture.
+            <p className="mt-7 max-w-xl text-base leading-8 text-white/60 sm:text-lg">
+              Ever had a little &quot;wait, how does that work?&quot; moment?
+              CU101 turns those questions into visual, understandable
+              explanations of the science behind our world.
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/explore"
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-4 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-              >
-                Enter the question deck <span className="ml-2">→</span>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/explore" className="editorial-button">
+                Explore your curiosity <span aria-hidden="true">↗</span>
               </Link>
 
               <Link
                 href="/learn"
-                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.035] px-6 py-4 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.06]"
+                className="inline-flex min-h-12 items-center justify-center border border-white/20 px-5 text-xs font-bold transition hover:border-[#a8f2ed] hover:text-[#a8f2ed]"
               >
-                Go deeper
+                Enter the learning hub
               </Link>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 text-xs text-slate-600">
-              <span>
-                <strong className="text-slate-300">Questions</strong> first
-              </span>
-              <span>
-                <strong className="text-slate-300">Pictures</strong> before jargon
-              </span>
-              <span>
-                <strong className="text-slate-300">One rabbit hole</strong> at a time
-              </span>
+            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-xs text-white/45">
+              <span>Questions before jargon</span>
+              <span aria-hidden="true">·</span>
+              <span>Visual explanations</span>
+              <span aria-hidden="true">·</span>
+              <span>Science worth exploring</span>
             </div>
           </div>
 
-          <div className="hero-art relative min-h-[560px] lg:min-h-[680px]">
-            <div className="absolute left-1/2 top-1/2 h-[31rem] w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/[0.035] blur-3xl" />
-            <div className="orbit-spin absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.05]" />
-            <div className="orbit-spin-reverse absolute left-1/2 top-1/2 h-[23rem] w-[23rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/[0.07]" />
+          <div className="relative mx-auto flex min-h-[390px] w-full max-w-lg items-center justify-center sm:min-h-[500px] lg:min-h-[580px]">
+            <div
+              aria-hidden="true"
+              className="absolute h-[19rem] w-[19rem] rounded-full border border-white/[0.08] sm:h-[25rem] sm:w-[25rem]"
+            />
 
-            <div className="absolute left-[3%] top-[14%] glass-card rounded-2xl px-4 py-3">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-violet-300">
-                Space
-              </p>
-              <p className="mt-1 text-sm font-semibold text-white">
-                What happens past the edge?
+            <div
+              aria-hidden="true"
+              className="absolute h-[15rem] w-[15rem] rounded-full border border-[#a8f2ed]/15 sm:h-[20rem] sm:w-[20rem]"
+            />
+
+            <div
+              aria-hidden="true"
+              className="absolute h-64 w-64 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl sm:h-80 sm:w-80"
+            />
+
+            <div className="relative z-10 h-[20rem] w-[17rem] sm:h-[27rem] sm:w-[22rem]">
+              <Image
+                src="/curio/curio.png"
+                alt="Curio, your guide to exploring science with CU101"
+                fill
+                priority
+                sizes="(max-width: 640px) 272px, 352px"
+                className="object-contain drop-shadow-[0_24px_45px_rgba(0,0,0,0.4)]"
+              />
+            </div>
+
+            <div className="absolute left-0 top-[12%] z-20 max-w-[190px] border border-white/10 bg-[#151a17]/95 p-4 sm:left-[-2%]">
+              <p className="editorial-label text-[#a8f2ed]">The big question</p>
+              <p className="mt-2 text-sm font-bold leading-5">
+                What happens beyond a black hole&apos;s edge?
               </p>
             </div>
 
-            <div className="absolute right-[2%] top-[27%] glass-card rounded-2xl px-4 py-3">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                Everyday
-              </p>
-              <p className="mt-1 text-sm font-semibold text-white">
-                Why does that click?
-              </p>
-            </div>
-
-            <div className="absolute bottom-[16%] left-[8%] glass-card rounded-2xl px-4 py-3">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-amber-300">
-                How things work
-              </p>
-              <p className="mt-1 text-sm font-semibold text-white">
-                What is moving underneath?
-              </p>
-            </div>
-
-            <div className="absolute left-1/2 top-1/2 flex h-[31rem] w-[31rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-              <div className="absolute h-72 w-72 rounded-full border border-white/[0.05]" />
-              <div className="absolute h-56 w-56 rounded-full border border-violet-300/[0.07]" />
-
-              <div className="curio-float relative flex h-[24rem] w-[20rem] items-end justify-center">
-                <Image
-                  src="/curio/curio.png"
-                  alt="Curio"
-                  width={420}
-                  height={560}
-                  priority
-                  className="relative z-10 h-full w-full object-contain drop-shadow-[0_35px_60px_rgba(0,0,0,.6)]"
-                />
-              </div>
-            </div>
-
-            <div className="absolute bottom-[7%] right-[6%] max-w-[220px] rounded-2xl border border-white/[0.07] bg-slate-950/80 px-4 py-3 shadow-2xl shadow-black/30 backdrop-blur-xl">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-600">
-                CU101
-              </p>
-              <p className="mt-1 text-sm font-semibold leading-6 text-slate-200">
-                You do not need a textbook before you can be curious.
+            <div className="absolute bottom-[10%] right-0 z-20 max-w-[195px] border border-white/10 bg-[#151a17]/95 p-4 sm:right-[-2%]">
+              <p className="editorial-label">Curio&apos;s reminder</p>
+              <p className="mt-2 text-sm font-bold leading-5">
+                Understanding starts with asking why.
               </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="border-y border-white/[0.07] bg-white/[0.012]">
-          <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
-                The CU101 loop
-              </p>
-              <p className="text-xs text-slate-600">
-                Notice something. Ask why. Keep going.
-              </p>
-            </div>
+      <section className="border-b border-white/10 bg-[#151a17] px-5 py-6 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="editorial-label">The CU101 approach</p>
+          <p className="text-sm text-white/50">
+            Notice something. Ask why. Understand how it works.
+          </p>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+          <div>
+            <p className="editorial-label text-[#a8f2ed]">
+              Learning without the fog
+            </p>
+
+            <h2 className="mt-5 max-w-lg text-4xl font-black leading-[1.02] tracking-[-0.055em] sm:text-5xl">
+              First, make it make sense.
+            </h2>
+
+            <p className="mt-5 max-w-md text-sm leading-7 text-white/55 sm:text-base">
+              The goal isn&apos;t to throw more information at you. It&apos;s
+              to help you build a picture of what is happening and why.
+            </p>
+
+            <Link
+              href="/about"
+              className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#a8f2ed] hover:text-white"
+            >
+              Get to know CU101 <span aria-hidden="true">↗</span>
+            </Link>
           </div>
-        </section>
 
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[.76fr_1.24fr]">
+          <div className="border-t border-white/10">
+            {principles.map((principle) => (
+              <article
+                key={principle.number}
+                className="grid gap-3 border-b border-white/10 py-6 sm:grid-cols-[3rem_1fr] sm:gap-5 sm:py-7"
+              >
+                <span className="font-mono text-xs text-[#a8f2ed]">
+                  {principle.number}
+                </span>
+
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight">
+                    {principle.title}
+                  </h3>
+
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/50">
+                    {principle.description}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-[#151a17] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                How CU101 feels
+              <p className="editorial-label text-[#a8f2ed]">
+                Start exploring
               </p>
-              <h2 className="mt-4 max-w-lg text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                A question is only the beginning.
+
+              <h2 className="mt-4 text-3xl font-black tracking-[-0.05em] sm:text-5xl">
+                Into the unknown.
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-7 text-slate-500">
-                We want the answer to keep pulling you forward instead of closing the tab.
+
+              <p className="mt-4 max-w-xl text-sm leading-7 text-white/50">
+                Begin with one of the published lessons, or browse the
+                question deck to find something that grabs you.
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              {trail.map((item) => (
-                <div
-                  key={item.number}
-                  className="glass-card group rounded-[1.6rem] p-5 transition hover:-translate-y-1 hover:border-white/15"
+            <Link
+              href="/explore"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#a8f2ed] hover:text-white"
+            >
+              Browse questions <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+
+          {!lessonsAvailable ? (
+            <div className="mt-9 border border-white/10 p-6 sm:p-8">
+              <p className="text-sm leading-7 text-white/60">
+                The lesson collection is temporarily unavailable. You can
+                still explore CU101 and visit the learning hub.
+              </p>
+
+              <Link href="/learn" className="editorial-button mt-5">
+                Open learning hub <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          ) : featuredLessons.length === 0 ? (
+            <div className="mt-9 border border-white/10 p-6 sm:p-8">
+              <p className="text-sm leading-7 text-white/60">
+                New lessons are being prepared for this collection. Explore
+                the question deck to see what is available.
+              </p>
+
+              <Link href="/explore" className="editorial-button mt-5">
+                Explore CU101 <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-9 grid gap-3 md:grid-cols-3">
+              {featuredLessons.map((lesson, index) => (
+                <Link
+                  key={lesson._id}
+                  href={`/learn/lesson-overview?lesson=${encodeURIComponent(lesson.slug)}`}
+                  className="group flex min-h-64 flex-col border border-white/10 bg-[#101312] p-6 transition hover:-translate-y-1 hover:border-[#a8f2ed]/40"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-semibold tracking-[0.16em] text-cyan-300">
-                      {item.number}
+                    <span className="font-mono text-xs text-[#a8f2ed]">
+                      0{index + 1}
                     </span>
-                    <span className="text-slate-700 transition group-hover:text-slate-400">
+
+                    <span className="text-white/35 transition group-hover:text-[#a8f2ed]">
                       ↗
                     </span>
                   </div>
 
-                  <h3 className="mt-9 text-lg font-semibold text-white">
-                    {item.title}
+                  <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                    {lesson.topic}
+                  </p>
+
+                  <h3 className="mt-3 text-xl font-black leading-snug tracking-tight transition group-hover:text-[#a8f2ed]">
+                    {lesson.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-slate-500">
-                    {item.text}
+                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-white/50">
+                    {lesson.summary}
                   </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        <section className="border-y border-white/[0.07] bg-white/[0.012]">
-          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-24">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300">
-                  Choose a direction
-                </p>
-                <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                  Where is your curiosity pulling you?
-                </h2>
-              </div>
-
-              <Link
-                href="/explore"
-                className="text-sm font-semibold text-slate-500 transition hover:text-white"
-              >
-                See the whole deck →
-              </Link>
-            </div>
-
-            <div className="mt-10 grid gap-4 lg:grid-cols-3">
-              {paths.map((path) => (
-                <Link
-                  key={path.title}
-                  href="/explore"
-                  className="glass-card group relative overflow-hidden rounded-[1.8rem] p-6 transition duration-400 hover:-translate-y-1.5 hover:border-white/15"
-                >
-                  <div
-                    className={`absolute -right-10 -top-10 h-36 w-36 rounded-full blur-3xl ${
-                      path.tone === "violet"
-                        ? "bg-violet-400/[0.12]"
-                        : path.tone === "cyan"
-                          ? "bg-cyan-300/[0.11]"
-                          : "bg-amber-300/[0.1]"
-                    }`}
-                  />
-
-                  <div className="relative">
-                    <p
-                      className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${
-                        path.tone === "violet"
-                          ? "text-violet-300"
-                          : path.tone === "cyan"
-                            ? "text-cyan-300"
-                            : "text-amber-300"
-                      }`}
-                    >
-                      {path.label}
-                    </p>
-
-                    <h3 className="mt-10 text-2xl font-semibold tracking-[-0.03em] text-white">
-                      {path.title}
-                    </h3>
-
-                    <p className="mt-3 max-w-sm text-sm leading-6 text-slate-500">
-                      {path.text}
-                    </p>
-
-                    <div className="mt-8 text-sm font-semibold text-slate-400 transition group-hover:text-white">
-                      Explore questions{" "}
-                      <span className="ml-1 transition group-hover:translate-x-1">
-                        →
-                      </span>
-                    </div>
+                  <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-6 text-xs text-white/40">
+                    <span>{lesson.durationMinutes} min</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{lesson.difficulty}</span>
                   </div>
                 </Link>
               ))}
             </div>
-          </div>
-        </section>
+          )}
+        </div>
+      </section>
 
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
-          <div>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                Pick a rabbit hole
-              </p>
+      <section className="px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="editorial-label justify-center text-[#a8f2ed]">
+            One question changes everything
+          </p>
 
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                What are you wondering about?
-              </h2>
+          <h2 className="mt-5 text-4xl font-black leading-[1.02] tracking-[-0.06em] sm:text-6xl">
+            Stay curious.
+            <span className="block text-[#a8f2ed]">Follow the why.</span>
+          </h2>
 
-              <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-slate-500">
-                Search. Filter. Jump into the question that refuses to leave your head.
-              </p>
-            </div>
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-white/55 sm:text-base">
+            You don&apos;t need to know everything. You only need a question
+            worth following.
+          </p>
 
-            <div className="mt-12">
-              <CuriosityExplorer />
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-white/[0.07]">
-          <div className="mx-auto max-w-5xl px-5 py-24 text-center sm:px-8 lg:py-28">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300">
-              Keep wondering
-            </p>
-
-            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.05em] text-white sm:text-6xl">
-              There is always another question.
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-500 sm:text-base">
-              Start with one thing you noticed today. We will take it from there.
-            </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link href="/explore" className="editorial-button">
+              Find your next question <span aria-hidden="true">↗</span>
+            </Link>
 
             <Link
               href="/learn"
-              className="mt-8 inline-flex items-center rounded-2xl bg-white px-7 py-4 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+              className="inline-flex min-h-12 items-center justify-center border border-white/20 px-5 text-xs font-bold transition hover:border-[#a8f2ed] hover:text-[#a8f2ed]"
             >
-              Start learning <span className="ml-2">→</span>
+              Start learning
             </Link>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </div>
   );
 }
-

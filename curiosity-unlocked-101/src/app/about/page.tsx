@@ -1,263 +1,271 @@
+
 import Image from "next/image";
 import Link from "next/link";
 
 const principles = [
   {
     number: "01",
-    title: "Curiosity first",
+    title: "Curiosity first.",
     text: "Every lesson starts with a question worth asking.",
   },
   {
     number: "02",
-    title: "Understand, don't memorize",
+    title: "Understand, don't memorize.",
     text: "We care about the why behind a fact, not just the answer.",
   },
   {
     number: "03",
-    title: "Keep exploring",
+    title: "Keep exploring.",
     text: "One answer should make you curious about the next question.",
   },
 ];
 
 const ecosystem = [
   {
-    label: "SHORTS",
-    title: "The spark",
-    text: "Short-form curiosity content designed to make you stop and think.",
+    number: "01",
+    label: "SHORT-FORM CONTENT",
+    title: "The spark.",
+    text: "Short discoveries that make you pause, wonder, and ask another question.",
   },
   {
-    label: "LEARNING",
-    title: "The deeper dive",
-    text: "Interactive lessons that take interesting ideas further.",
+    number: "02",
+    label: "INTERACTIVE LEARNING",
+    title: "The deeper dive.",
+    text: "Lessons that help turn a fascinating question into real understanding.",
   },
   {
-    label: "BOOKS",
-    title: "The knowledge shelf",
-    text: "Longer-form educational material built around the same curiosity.",
+    number: "03",
+    label: "EDUCATIONAL BOOKS",
+    title: "The bigger picture.",
+    text: "Longer-form material built around the same spirit of curiosity.",
   },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      {/* HERO / MEET CURIO */}
-      <section className="relative overflow-hidden border-b border-white/10">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(34,211,238,0.10),transparent_25%),radial-gradient(circle_at_50%_72%,rgba(139,92,246,0.13),transparent_38%)]" />
-
-        <div className="relative mx-auto max-w-6xl px-6 pb-8 pt-14 text-center sm:px-8 lg:pb-10 lg:pt-16">
-          {/* INTRO */}
-          <div className="relative z-20 mx-auto max-w-3xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-300">
-              About CU101
+    <main className="overflow-hidden">
+      <section className="relative border-b border-white/15">
+        <div className="mx-auto grid max-w-[1600px] gap-8 px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:px-14 lg:py-24">
+          <div className="relative z-10">
+            <p className="editorial-label">
+              <span className="mr-3 text-[#a8f2ed]">01 /</span>
+              The idea behind CU101
             </p>
 
-            <h1 className="mx-auto mt-4 text-5xl font-semibold leading-[0.92] tracking-[-0.06em] text-white sm:text-6xl lg:text-8xl">
-              Curiosity is a
-              <span className="block text-slate-500">way of learning.</span>
+            <h1 className="mt-8 text-[clamp(3.6rem,8vw,8rem)] font-black leading-[.8] tracking-[-0.085em] text-[#f0efe7]">
+              CURIOSITY
+              <br />
+              IS A
+              <br />
+              <span className="text-[#a8f2ed]">WAY OF</span>
+              <br />
+              LEARNING.
             </h1>
 
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
-              Curiosity Unlocked 101 is an educational project built around a
-              simple idea: take the questions that make you stop and ask
-              “wait, how does that work?” and actually follow them somewhere.
+            <p className="mt-8 max-w-xl text-base leading-7 text-white/55 sm:text-lg sm:leading-8">
+              Curiosity Unlocked 101 began with a simple idea: take the
+              questions that make you stop and think, "Wait, how does that
+              work?" and actually follow them somewhere.
             </p>
 
-            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link
-                href="/explore"
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-              >
-                Explore CU101 →
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/explore" className="editorial-button">
+                Explore CU101 <span aria-hidden="true">↗</span>
               </Link>
-
               <Link
                 href="/learn"
-                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-7 py-3.5 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.08]"
+                className="inline-flex min-h-12 items-center border border-white/20 px-5 py-3 text-xs font-bold text-[#f0efe7] transition hover:border-[#a8f2ed] hover:text-[#a8f2ed]"
               >
                 Start learning
               </Link>
             </div>
+
+            <div className="mt-12 border-t border-white/15 pt-5">
+              <p className="editorial-label">The guiding principle</p>
+              <p className="mt-3 max-w-lg text-xl font-bold leading-snug tracking-[-0.035em] text-[#f0efe7] sm:text-2xl">
+                Don't stop at knowing the answer. Understand why it makes
+                sense.
+              </p>
+            </div>
           </div>
 
-          {/* CURIO */}
-          <div className="relative mx-auto mt-3 max-w-3xl sm:mt-5">
-            <div className="pointer-events-none absolute left-1/2 top-[45%] h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/[0.055] blur-3xl" />
+          <div className="relative flex min-h-[390px] items-center justify-center overflow-hidden border border-white/15 bg-[#151a17] sm:min-h-[540px] lg:min-h-[660px]">
+            <div className="absolute left-1/2 top-[43%] h-[370px] w-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#a8f2ed]/20" />
+            <div className="absolute left-1/2 top-[43%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#a8f2ed]/15" />
+            <div className="absolute left-1/2 top-[43%] h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ffb68b]/20" />
 
-            <div className="pointer-events-none absolute bottom-0 left-1/2 h-64 w-[28rem] -translate-x-1/2 rounded-full bg-violet-400/[0.10] blur-3xl" />
-
-            <div className="relative flex items-end justify-center">
-              <Image
-                src="/curio/curio.png"
-                alt="Curio, the face of Curiosity Unlocked 101"
-                width={700}
-                height={900}
-                priority
-                className="relative z-10 h-auto max-h-[660px] w-auto max-w-[94%] object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,.7)]"
-              />
-
-              <div className="absolute bottom-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-slate-950/85 px-5 py-2.5 shadow-2xl backdrop-blur-xl">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                  Meet Curio
-                </span>
-              </div>
+            <div className="absolute left-5 top-5 z-10 sm:left-7 sm:top-7">
+              <p className="editorial-label text-[#a8f2ed]">Your guide</p>
+              <p className="mt-2 text-xs text-white/40">
+                Question everything.
+              </p>
             </div>
 
-            <p className="relative z-20 mx-auto mt-0 max-w-md text-sm leading-6 text-slate-500">
-              The curious guide behind the questions, discoveries, and rabbit
-              holes of CU101.
-            </p>
+            <Image
+              src="/curio/curio.png"
+              alt="Curio, the curious guide behind CU101"
+              width={700}
+              height={900}
+              priority
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="relative z-10 mt-5 h-auto max-h-[540px] w-auto max-w-[92%] object-contain sm:max-h-[620px]"
+            />
+
+            <div className="absolute inset-x-0 bottom-0 z-20 border-t border-white/15 bg-[#101312]/90 p-5 backdrop-blur-sm sm:p-7">
+              <p className="editorial-label text-[#d8ff70]">
+                Meet Curio
+              </p>
+              <p className="mt-2 text-xl font-black tracking-[-0.04em] text-[#f0efe7] sm:text-2xl">
+                The character behind the questions.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* WHO IS CURIO */}
-      <section className="mx-auto max-w-5xl px-6 py-16 text-center sm:px-8 lg:py-20">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300">
-          Who is Curio?
-        </p>
-
-        <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-semibold tracking-[-0.045em] text-white sm:text-5xl">
-          The character behind the curiosity.
-        </h2>
-
-        <div className="mx-auto mt-6 max-w-3xl space-y-4 text-base leading-8 text-slate-400 sm:text-lg">
-          <p>
-            Curio is the recognizable face of CU101 — a curious guide who
-            discovers, questions, investigates, and explains the interesting
-            things hiding around us.
+      <section className="mx-auto grid max-w-[1600px] gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[.8fr_1.2fr] lg:px-14 lg:py-24">
+        <div>
+          <p className="editorial-label">
+            <span className="mr-3 text-[#a8f2ed]">02 /</span>
+            Who is Curio?
           </p>
+          <h2 className="mt-5 text-4xl font-black leading-[.9] tracking-[-0.065em] text-[#f0efe7] sm:text-6xl">
+            NOT JUST A MASCOT.
+            <span className="block text-[#a8f2ed]">A WAY IN.</span>
+          </h2>
+        </div>
 
-          <p>
-            He isn't here to act like a lecturer standing behind a
-            presentation. Curio is part of the experience. He gets involved in
-            the question, explores the idea, and helps turn something
-            complicated into something you can understand.
+        <div className="border-l-2 border-[#a8f2ed] pl-6 sm:pl-8">
+          <p className="text-lg leading-8 text-[#f0efe7] sm:text-2xl sm:leading-9">
+            Curio is the recognizable face of CU101: a curious guide who
+            investigates interesting things, questions assumptions, and helps
+            make complicated ideas easier to understand.
           </p>
-
-          <p>
-            Across CU101, the same character can appear in short videos,
-            interactive lessons, and future educational material.
+          <p className="mt-5 text-sm leading-7 text-white/50 sm:text-base">
+            He's not simply standing beside a presentation. Curio is part of
+            the experience—discovering the idea, exploring what makes it
+            interesting, and helping the audience follow along.
+          </p>
+          <p className="mt-4 text-sm leading-7 text-white/50 sm:text-base">
+            Across short videos, interactive lessons, and future educational
+            material, Curio gives CU101 a recognizable character and a
+            consistent voice.
           </p>
         </div>
       </section>
 
-      {/* PRINCIPLES */}
-      <section className="border-y border-white/10 bg-white/[0.015]">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-              What we believe
-            </p>
+      <section className="border-y border-white/15 bg-[#111513]">
+        <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 sm:py-20 lg:px-14 lg:py-24">
+          <p className="editorial-label">
+            <span className="mr-3 text-[#a8f2ed]">03 /</span>
+            What we believe
+          </p>
 
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-              Three rules keep CU101 simple.
+          <div className="mt-5 grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
+            <h2 className="text-4xl font-black leading-[.9] tracking-[-0.065em] text-[#f0efe7] sm:text-6xl">
+              THREE RULES.
+              <br />
+              <span className="text-[#a8f2ed]">ONE MINDSET.</span>
             </h2>
+            <p className="max-w-xl text-base leading-7 text-white/50 sm:text-lg">
+              Education doesn't have to drain the wonder out of a subject.
+              The explanation should make the world more interesting, not less.
+            </p>
           </div>
 
-          <div className="mt-9 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid border-l border-t border-white/15 md:grid-cols-3">
             {principles.map((item) => (
-              <div
+              <article
                 key={item.number}
-                className="rounded-[2rem] border border-white/10 bg-slate-950/70 p-7 transition duration-300 hover:-translate-y-1 hover:border-white/20"
+                className="flex min-h-[270px] flex-col border-b border-r border-white/15 p-6 sm:p-8"
               >
-                <span className="text-xs font-semibold text-cyan-300">
+                <span className="text-xs font-bold tracking-[0.15em] text-[#a8f2ed]">
                   {item.number}
                 </span>
-
-                <h3 className="mt-7 text-2xl font-semibold tracking-[-0.025em] text-white">
+                <h3 className="mt-auto pt-12 text-2xl font-black leading-tight tracking-[-0.045em] text-[#f0efe7] sm:text-3xl">
                   {item.title}
                 </h3>
-
-                <p className="mt-3 leading-7 text-slate-400">
+                <p className="mt-4 text-sm leading-6 text-white/45">
                   {item.text}
                 </p>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ECOSYSTEM */}
-      <section className="mx-auto max-w-6xl px-6 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300">
-            The CU101 ecosystem
-          </p>
-
-          <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-            One curiosity. Different ways to follow it.
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-400">
-            CU101 isn't limited to one format. Different experiences can take
-            the same idea to different levels of depth.
+      <section className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 sm:py-20 lg:px-14 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="editorial-label">
+              <span className="mr-3 text-[#a8f2ed]">04 /</span>
+              The CU101 ecosystem
+            </p>
+            <h2 className="mt-5 text-4xl font-black leading-[.9] tracking-[-0.065em] text-[#f0efe7] sm:text-6xl">
+              ONE CURIOSITY.
+              <br />
+              <span className="text-[#a8f2ed]">MORE THAN ONE WAY.</span>
+            </h2>
+          </div>
+          <p className="max-w-lg text-sm leading-7 text-white/50 sm:text-base">
+            Different formats serve different moments. A short video can
+            spark an idea. A lesson can develop it. A book can give it room
+            to breathe.
           </p>
         </div>
 
-        <div className="mx-auto mt-9 max-w-4xl space-y-4">
-          {ecosystem.map((item, index) => (
-            <div
-              key={item.label}
-              className="group grid gap-5 rounded-3xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:border-white/20 hover:bg-white/[0.04] sm:grid-cols-[90px_1fr] sm:items-center"
+        <div className="mt-12 border-l border-t border-white/15">
+          {ecosystem.map((item) => (
+            <article
+              key={item.number}
+              className="grid gap-5 border-b border-r border-white/15 p-6 sm:grid-cols-[100px_1fr] sm:items-center sm:p-8"
             >
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-slate-950 text-xs font-bold text-slate-400">
-                0{index + 1}
-              </div>
-
+              <span className="text-4xl font-black tracking-[-0.07em] text-[#a8f2ed]">
+                {item.number}
+              </span>
               <div>
-                <p className="text-[10px] font-semibold tracking-[0.2em] text-cyan-300">
-                  {item.label}
-                </p>
-
-                <h3 className="mt-2 text-2xl font-semibold text-white">
+                <p className="editorial-label">{item.label}</p>
+                <h3 className="mt-2 text-2xl font-black tracking-[-0.045em] text-[#f0efe7] sm:text-3xl">
                   {item.title}
                 </h3>
-
-                <p className="mt-2 max-w-2xl leading-7 text-slate-400">
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-white/45 sm:text-base">
                   {item.text}
                 </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* FEEDBACK */}
-      <section className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:py-20">
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.02] p-8 sm:p-10 lg:p-12">
-            <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-violet-400/10 blur-3xl" />
+      <section className="border-t border-white/15 bg-[#0b0e0d]">
+        <div className="mx-auto grid max-w-[1600px] gap-8 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_auto] lg:items-center lg:px-14 lg:py-24">
+          <div>
+            <p className="editorial-label text-[#d8ff70]">
+              Still a work in progress
+            </p>
+            <h2 className="mt-5 max-w-3xl text-4xl font-black leading-[.9] tracking-[-0.065em] text-[#f0efe7] sm:text-6xl">
+              BUILD. LISTEN.
+              <span className="block text-[#a8f2ed]">IMPROVE.</span>
+            </h2>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/50 sm:text-base">
+              CU101 should grow through the questions people ask, the lessons
+              they want, and the feedback they share.
+            </p>
+          </div>
 
-            <div className="relative mx-auto max-w-3xl text-center">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                The platform evolves
-              </p>
-
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.035em] text-white sm:text-4xl">
-                CU101 isn't finished because V1 is finished.
-              </h2>
-
-              <p className="mt-4 text-base leading-8 text-slate-400 sm:text-lg">
-                The people using the platform should have a say in what comes
-                next. Feedback helps us discover what works, what doesn't, and
-                what deserves another iteration.
-              </p>
-
-              <p className="mt-4 text-base leading-8 text-slate-400 sm:text-lg">
-                Build it. Release it. Listen. Improve it.
-              </p>
-
-              <Link
-                href="/social"
-                className="mt-7 inline-flex items-center justify-center rounded-2xl bg-white px-7 py-3.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-              >
-                Connect with CU101 →
-              </Link>
-            </div>
+          <div className="flex flex-wrap gap-3 lg:flex-col">
+            <Link href="/feedback" className="editorial-button">
+              Share feedback <span aria-hidden="true">↗</span>
+            </Link>
+            <Link
+              href="/social"
+              className="inline-flex min-h-12 items-center border border-white/20 px-5 py-3 text-xs font-bold text-[#f0efe7] transition hover:border-[#a8f2ed] hover:text-[#a8f2ed]"
+            >
+              Find the community
+            </Link>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
-

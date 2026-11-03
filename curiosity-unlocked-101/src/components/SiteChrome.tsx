@@ -1,3 +1,4 @@
+
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -10,12 +11,13 @@ export default function SiteChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
+  const isAdmin =
+    pathname === "/admin" || pathname.startsWith("/admin/");
 
   return (
     <>
       {!isAdmin && <SiteHeader />}
-      <main>{children}</main>
+      <div className="site-content">{children}</div>
       {!isAdmin && <SiteFooter />}
     </>
   );

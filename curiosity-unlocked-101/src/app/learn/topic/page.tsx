@@ -1,6 +1,7 @@
+
 import Image from "next/image";
 import Link from "next/link";
-import { getLessonsByTopic } from "@/lib/api";
+import { getLessonsByTopic, type Lesson } from "@/lib/api";
 
 const discoveries = [
   "Why black holes are not actually cosmic vacuum cleaners",
@@ -10,7 +11,20 @@ const discoveries = [
 ];
 
 export default async function BlackHolesTopicPage() {
-  const lessons = await getLessonsByTopic("black-holes");
+  let lessons: Lesson[] = [];
+
+  try {
+    lessons = await getLessonsByTopic("black-holes");
+  } catch (error) {
+    console.error("Failed to load black hole lessons:", error);
+  }
+
+  const totalMinutes = lessons.reduce(
+    (total, lesson) => total + lesson.durationMinutes,
+    0,
+  );
+
+  const firstLesson = lessons[0];
 
   return (
     <div className="relative overflow-hidden">
@@ -21,22 +35,16 @@ export default async function BlackHolesTopicPage() {
       </div>
 
       <main className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-8 lg:px-10">
-        {/* Breadcrumb */}
         <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-400">
           <Link href="/learn" className="transition hover:text-white">
             Learn
           </Link>
-
           <span className="text-slate-600">/</span>
-
           <span className="text-slate-200">Space</span>
-
           <span className="text-slate-600">/</span>
-
           <span className="text-slate-500">Black Holes</span>
         </div>
 
-        {/* Hero */}
         <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-7 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-10 lg:p-14">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_30%,rgba(99,102,241,0.18),transparent_35%),radial-gradient(circle_at_90%_80%,rgba(34,211,238,0.08),transparent_30%)]" />
 
@@ -60,13 +68,18 @@ export default async function BlackHolesTopicPage() {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/learn/lesson-overview"
-                  className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-                >
-                  Start learning
-                  <span className="ml-2">→</span>
-                </Link>
+                {firstLesson ? (
+                  <Link
+                    href={`/learn/lesson-overview?lesson=${encodeURIComponent(firstLesson.slug)}`}
+                    className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+                  >
+                    Start learning <span className="ml-2">→</span>
+                  </Link>
+                ) : (
+                  <span className="inline-flex cursor-not-allowed items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-bold text-slate-500">
+                    Lessons temporarily unavailable
+                  </span>
+                )}
 
                 <Link
                   href="/explore"
@@ -86,12 +99,7 @@ export default async function BlackHolesTopicPage() {
 
                 <div>
                   <span className="font-semibold text-white">
-                    ~
-                    {lessons.reduce(
-                      (total, lesson) => total + lesson.durationMinutes,
-                      0,
-                    )}{" "}
-                    min
+                    ~{totalMinutes} min
                   </span>{" "}
                   total
                 </div>
@@ -103,16 +111,11 @@ export default async function BlackHolesTopicPage() {
               </div>
             </div>
 
-            {/* Topic visual */}
             <div className="relative mx-auto h-[330px] w-full max-w-[420px]">
               <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-400/15 bg-indigo-500/5 blur-[1px]" />
-
               <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/10" />
-
               <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black shadow-[0_0_70px_rgba(99,102,241,0.35)]" />
-
               <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rotate-12 rounded-full border-[5px] border-transparent border-t-orange-300/80 border-r-indigo-300/60 blur-[0.3px]" />
-
               <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 -rotate-12 rounded-full border border-white/10" />
 
               <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 shadow-xl backdrop-blur-md">
@@ -125,13 +128,11 @@ export default async function BlackHolesTopicPage() {
           </div>
         </section>
 
-        {/* Why this topic */}
         <section className="mt-20 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
               Why this topic?
             </p>
-
             <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
               Start with the question.
             </h2>
@@ -142,7 +143,6 @@ export default async function BlackHolesTopicPage() {
               What happens when you squeeze an enormous amount of matter into
               an incredibly small region of space?
             </p>
-
             <p className="mt-5 leading-7 text-slate-400">
               Black holes are one of the best places to explore that question.
               We will keep the physics understandable while still giving you
@@ -151,17 +151,14 @@ export default async function BlackHolesTopicPage() {
           </div>
         </section>
 
-        {/* Discoveries */}
         <section className="mt-20">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
               What you&apos;ll discover
             </p>
-
             <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
               Four questions. One journey.
             </h2>
-
             <p className="mt-4 leading-7 text-slate-400">
               Each lesson answers one piece of the puzzle before moving to the
               next.
@@ -177,14 +174,12 @@ export default async function BlackHolesTopicPage() {
                 <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-slate-200">
                   0{index + 1}
                 </div>
-
                 <p className="leading-7 text-slate-300">{discovery}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Curio */}
         <section className="relative mt-20 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/60 p-7 sm:p-10">
           <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
@@ -203,11 +198,9 @@ export default async function BlackHolesTopicPage() {
               <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
                 Curio says
               </div>
-
               <h2 className="text-2xl font-black text-white sm:text-3xl">
                 “Don&apos;t memorize it. Understand it.”
               </h2>
-
               <p className="mt-4 max-w-2xl leading-7 text-slate-400">
                 CU101 is built around curiosity first. You start with a
                 question, build an intuitive picture, then connect it to the
@@ -217,19 +210,16 @@ export default async function BlackHolesTopicPage() {
           </div>
         </section>
 
-        {/* Dynamic lesson path */}
         <section className="mt-20">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
                 Learning path
               </p>
-
               <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
                 Follow the trail.
               </h2>
             </div>
-
             <div className="text-sm text-slate-500">
               {lessons.length} lessons from the CU101 database
             </div>
@@ -290,7 +280,7 @@ export default async function BlackHolesTopicPage() {
 
                       {isFirst ? (
                         <Link
-                          href={`/learn/lesson-overview?lesson=${lesson.slug}`}
+                          href={`/learn/lesson-overview?lesson=${encodeURIComponent(lesson.slug)}`}
                           className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 font-semibold text-white transition hover:bg-white/10"
                         >
                           Open
@@ -305,31 +295,35 @@ export default async function BlackHolesTopicPage() {
                 </div>
               );
             })}
+
+            {lessons.length === 0 && (
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm leading-6 text-slate-400">
+                No lessons are available right now. Please try again later.
+              </div>
+            )}
           </div>
         </section>
 
-        {/* Bottom CTA */}
         <section className="mt-20 text-center">
           <div className="mx-auto max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
               Ready?
             </p>
-
             <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
               Let&apos;s turn “how?” into “ohhh.”
             </h2>
-
             <p className="mx-auto mt-4 max-w-xl leading-7 text-slate-400">
               Your first black hole lesson is waiting.
             </p>
 
-            <Link
-              href="/learn/lesson-overview"
-              className="mt-7 inline-flex items-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-            >
-              Start the topic
-              <span className="ml-2">→</span>
-            </Link>
+            {firstLesson && (
+              <Link
+                href={`/learn/lesson-overview?lesson=${encodeURIComponent(firstLesson.slug)}`}
+                className="mt-7 inline-flex items-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+              >
+                Start the topic <span className="ml-2">→</span>
+              </Link>
+            )}
           </div>
         </section>
       </main>

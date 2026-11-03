@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,298 +10,265 @@ interface LessonOverviewPageProps {
   }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function LessonOverviewPage({
   searchParams,
 }: LessonOverviewPageProps) {
   const params = await searchParams;
-
   const lessonSlug = params.lesson ?? "what-is-a-black-hole";
 
-  const lesson = await getLessonBySlug(lessonSlug);
+  let lesson;
 
-  if (!lesson) {
+  try {
+    lesson = await getLessonBySlug(lessonSlug);
+  } catch {
+    return (
+      <div className="mx-auto max-w-3xl px-5 py-24 text-[#f0efe7]">
+        <p className="editorial-label text-[#a8f2ed]">
+          Learning / Connection issue
+        </p>
+        <h1 className="mt-5 text-3xl font-black tracking-tight">
+          We couldn&apos;t load this lesson.
+        </h1>
+        <p className="mt-4 text-sm leading-7 text-white/55">
+          The lesson service may be temporarily unavailable. Try again shortly.
+        </p>
+        <Link href="/learn" className="editorial-button mt-7">
+          Back to learning <span aria-hidden="true">↗</span>
+        </Link>
+      </div>
+    );
+  }
+
+  if (!lesson || lesson.status !== "published") {
     notFound();
   }
 
-  const topicLessons = await getLessonsByTopic(lesson.topicSlug);
+  let topicLessons: typeof lesson[] = [];
+
+  try {
+    const result = await getLessonsByTopic(lesson.topicSlug);
+    topicLessons = result
+      .filter((item) => item.status === "published")
+      .sort((a, b) => a.order - b.order);
+  } catch {
+    topicLessons = [lesson];
+  }
 
   const totalDuration = topicLessons.reduce(
     (total, item) => total + item.durationMinutes,
     0,
   );
 
-  return (
-    <div className="relative overflow-hidden">
-      {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-12rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl" />
-        <div className="absolute right-[-12rem] top-[30rem] h-[26rem] w-[26rem] rounded-full bg-cyan-400/5 blur-3xl" />
-        <div className="absolute left-[-12rem] bottom-[10rem] h-[24rem] w-[24rem] rounded-full bg-purple-500/5 blur-3xl" />
-      </div>
+  const currentIndex = topicLessons.findIndex(
+    (item) => item.slug === lesson.slug,
+  );
 
-      <main className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-8 lg:px-10">
-        {/* Breadcrumb */}
-        <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-400">
-          <Link href="/learn" className="transition hover:text-white">
+  const nextLesson =
+    currentIndex >= 0 ? topicLessons[currentIndex + 1] : undefined;
+
+  const topicHref =
+    lesson.topicSlug === "black-holes"
+      ? "/learn/topic"
+      : `/learn/topic?topic=${encodeURIComponent(lesson.topicSlug)}`;
+
+  const readerHref = `/learn/lesson?lesson=${encodeURIComponent(lesson.slug)}`;
+
+  return (
+    <div className="overflow-hidden bg-[#101312] text-[#f0efe7]">
+      <div className="mx-auto max-w-7xl px-5 pb-20 pt-8 sm:px-8 sm:pb-24 lg:px-12">
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-8 flex flex-wrap items-center gap-3 text-xs text-white/45"
+        >
+          <Link href="/" className="transition hover:text-[#a8f2ed]">
+            Home
+          </Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/learn" className="transition hover:text-[#a8f2ed]">
             Learn
           </Link>
-
-          <span className="text-slate-600">/</span>
-
+          <span aria-hidden="true">/</span>
           <Link
-            href="/learn/topic"
-            className="transition hover:text-white"
+            href={topicHref}
+            className="transition hover:text-[#a8f2ed]"
           >
             {lesson.topic}
           </Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-white/75">Overview</span>
+        </nav>
 
-          <span className="text-slate-600">/</span>
+        <section className="relative overflow-hidden border border-white/10 bg-[#151a17]">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#a8f2ed]/[0.07] blur-3xl"
+          />
 
-          <span className="text-slate-500">Lesson overview</span>
-        </div>
-
-        {/* Main intro */}
-        <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-7 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-10 lg:p-14">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(99,102,241,0.18),transparent_35%),radial-gradient(circle_at_90%_90%,rgba(34,211,238,0.08),transparent_32%)]" />
-
-          <div className="relative grid gap-12 lg:grid-cols-[1fr_0.42fr] lg:items-start">
+          <div className="relative grid gap-10 p-6 sm:p-10 lg:grid-cols-[1fr_260px] lg:gap-14 lg:p-14">
             <div>
-              <div className="mb-5 flex flex-wrap items-center gap-3">
-                <span className="rounded-full border border-indigo-400/20 bg-indigo-400/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-200">
-                  Lesson {String(lesson.order).padStart(2, "0")}
-                </span>
+              <p className="editorial-label text-[#a8f2ed]">
+                {lesson.topic} / Lesson {String(lesson.order).padStart(2, "0")}
+              </p>
 
-                <span className="text-sm text-slate-500">
-                  {lesson.category} · {lesson.difficulty}
-                </span>
-              </div>
-
-              <h1 className="max-w-4xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+              <h1 className="mt-7 max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.06em] sm:text-5xl lg:text-6xl">
                 {lesson.title}
               </h1>
 
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+              <p className="mt-6 max-w-3xl text-base leading-8 text-white/60 sm:text-lg">
                 {lesson.summary}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-400">
-                <div>
-                  <span className="font-semibold text-white">
-                    {lesson.durationMinutes} min
-                  </span>{" "}
-                  lesson
-                </div>
-
-                <div>
-                  <span className="font-semibold text-white">
-                    {lesson.blocks.length}
-                  </span>{" "}
-                  learning sections
-                </div>
-
-                <div>
-                  <span className="font-semibold text-white">
-                    {lesson.difficulty}
-                  </span>{" "}
-                  level
-                </div>
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-xs text-white/45">
+                <span>{lesson.durationMinutes} min</span>
+                <span aria-hidden="true">·</span>
+                <span>{lesson.difficulty}</span>
+                <span aria-hidden="true">·</span>
+                <span>{lesson.blocks.length} sections</span>
               </div>
 
               <div className="mt-9 flex flex-wrap gap-3">
-                <Link
-                  href={`/learn/lesson?lesson=${lesson.slug}`}
-                  className="inline-flex items-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-                >
-                  Start lesson
-                  <span className="ml-2">→</span>
+                <Link href={readerHref} className="editorial-button">
+                  Start lesson <span aria-hidden="true">↗</span>
                 </Link>
 
                 <Link
-                  href="/learn/topic"
-                  className="inline-flex items-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                  href={topicHref}
+                  className="inline-flex min-h-12 items-center justify-center border border-white/20 px-5 text-xs font-bold transition hover:border-[#a8f2ed] hover:text-[#a8f2ed]"
                 >
                   Back to topic
                 </Link>
               </div>
             </div>
 
-            {/* Curio */}
-            <div className="relative mx-auto w-full max-w-[230px]">
-              <div className="absolute inset-0 rounded-[2rem] bg-indigo-500/10 blur-2xl" />
-
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-3">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-                  <Image
-                    src="/curio/curio.png"
-                    alt="Curio"
-                    fill
-                    className="object-cover"
-                    sizes="230px"
-                  />
-                </div>
+            <div className="relative mx-auto w-full max-w-[230px] self-center">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 rounded-full bg-[#a8f2ed]/10 blur-3xl"
+              />
+              <div className="relative aspect-[4/5]">
+                <Image
+                  src="/curio/curio.png"
+                  alt="Curio, your guide to exploring science"
+                  fill
+                  priority
+                  sizes="230px"
+                  className="object-contain"
+                />
               </div>
+              <p className="text-center text-xs leading-5 text-white/45">
+                One question at a time. One idea at a time.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* About the lesson */}
-        <section className="mt-20 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <section className="mt-16 grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
+            <p className="editorial-label text-[#a8f2ed]">
               Before you begin
             </p>
-
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Know what you&apos;re getting into.
+            <h2 className="mt-4 max-w-lg text-3xl font-black leading-tight tracking-[-0.05em] sm:text-4xl">
+              Build understanding, not a list to memorize.
             </h2>
-
-            <p className="mt-4 leading-7 text-slate-400">
-              This lesson is designed to build the idea gradually. You do not
-              need to know advanced physics before starting.
+            <p className="mt-4 text-sm leading-7 text-white/50">
+              Take your time. Focus on the central idea, then connect the
+              details as you move through the lesson.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 sm:p-8">
-            <p className="text-lg leading-8 text-slate-300">
+          <div className="border border-white/10 bg-[#151a17] p-6 sm:p-8">
+            <p className="text-base leading-8 text-white/65">
               {lesson.description}
             </p>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-xs uppercase tracking-wider text-slate-500">
-                  Topic
-                </div>
-                <div className="mt-2 font-bold text-white">
-                  {lesson.topic}
-                </div>
+              <div className="border-t border-white/10 pt-4">
+                <p className="editorial-label">Topic</p>
+                <p className="mt-2 text-sm font-bold">{lesson.topic}</p>
               </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-xs uppercase tracking-wider text-slate-500">
-                  Duration
-                </div>
-                <div className="mt-2 font-bold text-white">
-                  {lesson.durationMinutes} min
-                </div>
+              <div className="border-t border-white/10 pt-4">
+                <p className="editorial-label">Duration</p>
+                <p className="mt-2 text-sm font-bold">
+                  {lesson.durationMinutes} minutes
+                </p>
               </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-xs uppercase tracking-wider text-slate-500">
-                  Level
-                </div>
-                <div className="mt-2 font-bold text-white">
-                  {lesson.difficulty}
-                </div>
+              <div className="border-t border-white/10 pt-4">
+                <p className="editorial-label">Level</p>
+                <p className="mt-2 text-sm font-bold">{lesson.difficulty}</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Lesson structure */}
-        <section className="mt-20">
+        <section className="mt-16">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+            <p className="editorial-label text-[#a8f2ed]">
               Inside this lesson
             </p>
-
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Here&apos;s the path.
+            <h2 className="mt-4 text-3xl font-black tracking-[-0.05em] sm:text-4xl">
+              The path ahead.
             </h2>
-
-            <p className="mt-4 leading-7 text-slate-400">
-              We&apos;ll move through these sections one idea at a time.
+            <p className="mt-4 text-sm leading-7 text-white/50">
+              Preview the lesson sections before you dive in.
             </p>
           </div>
 
-          <div className="mt-8 space-y-4">
-            {lesson.blocks.map((block, index) => (
-              <div
-                key={`${lesson.slug}-${index}`}
-                className="rounded-2xl border border-white/10 bg-slate-900/50 p-5 sm:p-6"
-              >
-                <div className="flex gap-5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm font-black text-slate-300">
+          {lesson.blocks.length === 0 ? (
+            <p className="mt-7 border border-white/10 p-6 text-sm leading-7 text-white/50">
+              The lesson structure is still being prepared. Open the lesson to
+              see whether its content is available.
+            </p>
+          ) : (
+            <div className="mt-7 border-t border-white/10">
+              {lesson.blocks.map((block, index) => (
+                <article
+                  key={`${lesson.slug}-${index}`}
+                  className="grid gap-4 border-b border-white/10 py-6 sm:grid-cols-[3rem_1fr] sm:gap-6"
+                >
+                  <span className="font-mono text-xs text-[#a8f2ed]">
                     {String(index + 1).padStart(2, "0")}
-                  </div>
-
+                  </span>
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="font-bold text-white">
-                        {block.title}
-                      </h3>
-
-                      <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                      <h3 className="text-lg font-bold">{block.title}</h3>
+                      <span className="border border-white/10 px-2 py-1 text-[10px] uppercase tracking-wider text-white/40">
                         {block.type}
                       </span>
                     </div>
-
-                    <p className="mt-2 leading-7 text-slate-400">
+                    <p className="mt-3 text-sm leading-7 text-white/50">
                       {block.content}
                     </p>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
-        {/* Topic progress */}
-        <section className="relative mt-20 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/60 p-7 sm:p-10">
-          <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
-
-          <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <section className="mt-16 border border-white/10 bg-[#151a17] p-6 sm:p-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                Your bigger picture
+              <p className="editorial-label text-[#a8f2ed]">
+                Continue exploring
               </p>
-
-              <h2 className="mt-3 text-2xl font-black text-white sm:text-3xl">
-                {topicLessons.length} lessons make up this topic.
+              <h2 className="mt-3 text-2xl font-black tracking-tight">
+                {nextLesson ? "Ready for the next idea?" : "Ready to begin?"}
               </h2>
-
-              <p className="mt-4 max-w-2xl leading-7 text-slate-400">
-                Complete this lesson and keep moving through the topic at your
-                own pace. The complete path takes roughly {totalDuration}{" "}
-                minutes.
+              <p className="mt-3 max-w-xl text-sm leading-6 text-white/50">
+                {nextLesson
+                  ? `Next in this collection: ${nextLesson.title}. Finish this lesson first, then keep following the questions.`
+                  : `This collection has ${topicLessons.length} published ${topicLessons.length === 1 ? "lesson" : "lessons"}, with about ${totalDuration} minutes of learning content.`}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center">
-              <div className="text-3xl font-black text-white">
-                {lesson.order}/{topicLessons.length}
-              </div>
-
-              <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">
-                Current lesson
-              </div>
-            </div>
+            <Link href={readerHref} className="editorial-button shrink-0">
+              Start lesson <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </section>
-
-        {/* Final CTA */}
-        <section className="mt-20 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
-            Ready?
-          </p>
-
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
-            Let&apos;s see what&apos;s actually going on.
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-xl leading-7 text-slate-400">
-            Start the lesson and let&apos;s turn the question into something
-            you can actually picture.
-          </p>
-
-          <Link
-            href={`/learn/lesson?lesson=${lesson.slug}`}
-            className="mt-7 inline-flex items-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-          >
-            Start learning
-            <span className="ml-2">→</span>
-          </Link>
-        </section>
-      </main>
+      </div>
     </div>
   );
 }

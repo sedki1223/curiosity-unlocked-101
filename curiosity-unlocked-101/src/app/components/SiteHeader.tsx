@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -6,10 +7,10 @@ import { useState } from "react";
 import { Show, UserButton } from "@clerk/nextjs";
 
 const navItems = [
-  { href: "/explore", label: "Explore" },
-  { href: "/learn", label: "Learn" },
-  { href: "/about", label: "Curio" },
-  { href: "/social", label: "Socials" },
+  { href: "/explore", label: "Explore", number: "01" },
+  { href: "/learn", label: "Learn", number: "02" },
+  { href: "/about", label: "Meet Curio", number: "03" },
+  { href: "/social", label: "Socials", number: "04" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -20,26 +21,38 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  return (
-    <header className="site-header sticky top-0 z-50 border-b border-white/[0.07]">
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
-        <Link href="/" className="group flex items-center gap-3" onClick={() => setMenuOpen(false)}>
-          <div className="brand-mark relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-[14px] border border-white/10 bg-white/[0.045] text-[11px] font-black tracking-[-0.04em] text-white shadow-lg shadow-black/20">
-            <span className="relative z-10">CU</span>
-            <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(103,232,249,0.18),transparent_42%),radial-gradient(circle_at_85%_80%,rgba(167,139,250,0.15),transparent_45%)] opacity-80 transition duration-300 group-hover:opacity-100" />
-          </div>
+  function closeMenu() {
+    setMenuOpen(false);
+  }
 
-          <div className="hidden sm:block">
-            <div className="text-sm font-black tracking-[-0.025em] text-white">
+  return (
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101312]/95 text-[#f0efe7] backdrop-blur-xl">
+      <div className="mx-auto flex min-h-[76px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
+        <Link
+          href="/"
+          onClick={closeMenu}
+          aria-label="Curiosity Unlocked 101 home"
+          className="group flex shrink-0 items-center gap-3"
+        >
+          <span className="relative flex h-11 w-11 items-center justify-center border border-[#a8f2ed]/50 bg-[#a8f2ed] text-sm font-black tracking-tight text-[#101312] transition group-hover:bg-[#d8ff70]">
+            CU
+            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-[#d8ff70]" />
+          </span>
+
+          <span className="hidden sm:block">
+            <span className="block text-sm font-black tracking-tight">
               Curiosity Unlocked 101
-            </div>
-            <div className="text-[10px] font-medium uppercase tracking-[0.17em] text-slate-600">
+            </span>
+            <span className="mt-1 block text-[9px] font-bold uppercase tracking-[0.2em] text-white/45">
               Discover · Understand · Explore
-            </div>
-          </div>
+            </span>
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-white/[0.07] bg-white/[0.025] p-1 md:flex">
+        <nav
+          aria-label="Main navigation"
+          className="hidden items-center gap-1 lg:flex"
+        >
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
 
@@ -48,31 +61,29 @@ export default function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                className={`flex min-h-11 items-center gap-2 border-b-2 px-3 text-xs font-bold transition ${
                   active
-                    ? "bg-white/[0.08] text-white shadow-sm"
-                    : "text-slate-500 hover:bg-white/[0.04] hover:text-slate-200"
+                    ? "border-[#a8f2ed] text-[#a8f2ed]"
+                    : "border-transparent text-white/55 hover:border-white/30 hover:text-[#f0efe7]"
                 }`}
               >
+                <span className="text-[9px] text-white/30">{item.number}</span>
                 {item.label}
               </Link>
             );
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           <Show when="signed-out">
             <Link
               href="/sign-in"
-              className="rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-500 transition hover:text-white"
+              className="text-xs font-bold text-white/60 transition hover:text-white"
             >
               Sign in
             </Link>
-            <Link
-              href="/sign-up"
-              className="header-join"
-            >
-              Join CU101 <span>↗</span>
+            <Link href="/sign-up" className="editorial-button min-h-10 px-4 py-2">
+              Join CU101 <span aria-hidden="true">↗</span>
             </Link>
           </Show>
 
@@ -80,30 +91,38 @@ export default function SiteHeader() {
             <UserButton />
           </Show>
 
-          <Link href="/learn" className="header-learn">
-            Start learning <span>→</span>
+          <Link
+            href="/learn"
+            className="text-xs font-bold text-[#a8f2ed] transition hover:text-[#d8ff70]"
+          >
+            Start learning →
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
           <Show when="signed-in">
             <UserButton />
           </Show>
+
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 transition hover:bg-white/[0.08] hover:text-white"
+            aria-controls="mobile-navigation"
+            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            className="flex h-11 w-11 items-center justify-center border border-white/15 text-xl text-[#f0efe7] transition hover:border-[#a8f2ed] hover:text-[#a8f2ed]"
           >
-            <span className="text-base">{menuOpen ? "✕" : "☰"}</span>
+            {menuOpen ? "×" : "☰"}
           </button>
         </div>
       </div>
 
       {menuOpen && (
-        <div className="border-t border-white/[0.07] bg-slate-950/95 px-5 py-4 backdrop-blur-xl md:hidden">
-          <nav className="space-y-1">
+        <div
+          id="mobile-navigation"
+          className="border-t border-white/10 bg-[#101312] px-5 py-5 sm:px-8 lg:hidden"
+        >
+          <nav aria-label="Mobile navigation" className="grid gap-1">
             {navItems.map((item) => {
               const active = isActive(pathname, item.href);
 
@@ -111,36 +130,47 @@ export default function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`block rounded-xl px-4 py-3 text-sm font-semibold transition ${
+                  onClick={closeMenu}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex items-center gap-4 border-b border-white/10 px-2 py-4 text-sm font-bold transition ${
                     active
-                      ? "bg-white/[0.06] text-white"
-                      : "text-slate-400 hover:bg-white/[0.04] hover:text-white"
+                      ? "text-[#a8f2ed]"
+                      : "text-white/65 hover:text-[#f0efe7]"
                   }`}
                 >
-                  {item.label}
+                  <span className="text-xs text-white/30">{item.number}</span>
+                  <span>{item.label}</span>
+                  <span className="ml-auto" aria-hidden="true">↗</span>
                 </Link>
               );
             })}
           </nav>
 
-          <div className="mt-4 grid grid-cols-2 gap-2 border-t border-white/[0.07] pt-4">
+          <div className="mt-5 grid grid-cols-2 gap-3">
             <Show when="signed-out">
               <Link
                 href="/sign-in"
-                onClick={() => setMenuOpen(false)}
-                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-center text-sm font-semibold text-slate-300"
+                onClick={closeMenu}
+                className="border border-white/20 px-4 py-3 text-center text-sm font-bold text-[#f0efe7] transition hover:border-[#a8f2ed]"
               >
                 Sign in
               </Link>
               <Link
                 href="/sign-up"
-                onClick={() => setMenuOpen(false)}
-                className="rounded-xl bg-white px-4 py-3 text-center text-sm font-bold text-slate-950"
+                onClick={closeMenu}
+                className="bg-[#a8f2ed] px-4 py-3 text-center text-sm font-black text-[#101312] transition hover:bg-[#d8ff70]"
               >
-                Join CU101
+                Join CU101 ↗
               </Link>
             </Show>
+
+            <Link
+              href="/learn"
+              onClick={closeMenu}
+              className="col-span-2 border border-white/10 px-4 py-3 text-center text-sm font-bold text-[#a8f2ed] transition hover:border-[#a8f2ed]"
+            >
+              Start learning →
+            </Link>
           </div>
         </div>
       )}
