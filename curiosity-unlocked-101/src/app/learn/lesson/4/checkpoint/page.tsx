@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import {useState} from "react";
 
 const questions = [
   {
@@ -43,27 +43,31 @@ export default function LessonFourCheckpointPage() {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [checked, setChecked] = useState(false);
-  const [score, setScore] = useState(0);
-  const [complete, setComplete] = useState(false);
+  const [score, setScore] = useState(() => {
+    try {
+      const saved = localStorage.getItem("cu101-progress");
+      const parsed = saved ? JSON.parse(saved) : null;
+
+      return parsed?.blackHoles?.lesson4Completed
+        ? questions.length
+        : 0;
+    } catch {
+      return 0;
+    }
+  });
+
+  const [complete, setComplete] = useState(() => {
+    try {
+      const saved = localStorage.getItem("cu101-progress");
+      const parsed = saved ? JSON.parse(saved) : null;
+
+      return Boolean(parsed?.blackHoles?.lesson4Completed);
+    } catch {
+      return false;
+    }
+  });
 
   const question = questions[current];
-
-  useEffect(() => {
-    const saved = localStorage.getItem("cu101-progress");
-
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-
-        if (parsed?.blackHoles?.lesson4Completed) {
-          setComplete(true);
-          setScore(questions.length);
-        }
-      } catch {
-        // Ignore invalid local progress.
-      }
-    }
-  }, []);
 
   function handleCheck() {
     if (selected === null || checked) {
@@ -142,16 +146,16 @@ export default function LessonFourCheckpointPage() {
     return (
       <div className="relative min-h-screen overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-[-12rem] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl" />
+          <div className="absolute left-1/2 top-[-12rem] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl" />
           <div className="absolute right-[-12rem] top-[38rem] h-[30rem] w-[30rem] rounded-full bg-cyan-400/5 blur-3xl" />
         </div>
 
         <main className="mx-auto flex min-h-screen max-w-5xl items-center px-6 py-20 sm:px-8">
-          <section className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-8 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-12">
-            <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
+          <section className="relative w-full overflow-hidden rounded-none border border-white/10 bg-[#151a17] p-8 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-12">
+            <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl" />
 
             <div className="relative">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-300/20 bg-emerald-400/10 text-2xl">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-none border border-emerald-300/20 bg-emerald-400/10 text-2xl">
                 ✓
               </div>
 
@@ -163,13 +167,13 @@ export default function LessonFourCheckpointPage() {
                 You made it to the edge.
               </h1>
 
-              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/65">
                 You finished the black-hole learning path and demonstrated the
                 core ideas behind it.
               </p>
 
-              <div className="mx-auto mt-8 max-w-md rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              <div className="mx-auto mt-8 max-w-md rounded-none border border-white/10 bg-white/[0.03] p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/40">
                   Result
                 </p>
 
@@ -177,7 +181,7 @@ export default function LessonFourCheckpointPage() {
                   {score} / {questions.length}
                 </p>
 
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-sm text-white/55">
                   Black Holes · Topic complete
                 </p>
               </div>
@@ -185,14 +189,14 @@ export default function LessonFourCheckpointPage() {
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Link
                   href="/learn/topic"
-                  className="inline-flex items-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                  className="inline-flex items-center rounded-none border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
                   Back to topic
                 </Link>
 
                 <Link
                   href="/explore"
-                  className="inline-flex items-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+                  className="inline-flex items-center rounded-none bg-white px-5 py-3 text-sm font-bold text-[#101312] transition hover:-translate-y-0.5 hover:bg-[#a8f2ed]"
                 >
                   Explore more →
                 </Link>
@@ -201,7 +205,7 @@ export default function LessonFourCheckpointPage() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="mt-6 text-sm text-slate-500 transition hover:text-slate-300"
+                className="mt-6 text-sm text-white/40 transition hover:text-white/65"
               >
                 Reset this checkpoint
               </button>
@@ -218,18 +222,18 @@ export default function LessonFourCheckpointPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-10rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl" />
+        <div className="absolute left-1/2 top-[-10rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl" />
         <div className="absolute right-[-12rem] top-[38rem] h-[28rem] w-[28rem] rounded-full bg-cyan-400/5 blur-3xl" />
       </div>
 
       <main className="mx-auto max-w-5xl px-6 pb-24 pt-10 sm:px-8">
         {/* Breadcrumb */}
-        <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+        <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/55">
           <Link href="/learn" className="transition hover:text-white">
             Learn
           </Link>
 
-          <span className="text-slate-600">/</span>
+          <span className="text-white/35">/</span>
 
           <Link
             href="/learn/topic"
@@ -238,19 +242,19 @@ export default function LessonFourCheckpointPage() {
             Black Holes
           </Link>
 
-          <span className="text-slate-600">/</span>
+          <span className="text-white/35">/</span>
 
-          <span className="text-slate-500">Checkpoint</span>
+          <span className="text-white/40">Checkpoint</span>
         </div>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-7 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(99,102,241,0.16),transparent_32%)]" />
+        <section className="relative overflow-hidden rounded-none border border-white/10 bg-[#151a17] p-7 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(168,242,237,0.16),transparent_32%)]" />
 
           <div className="relative">
             <div className="flex flex-wrap items-center justify-between gap-5">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a8f2ed]">
                   Final checkpoint
                 </p>
 
@@ -260,7 +264,7 @@ export default function LessonFourCheckpointPage() {
               </div>
 
               <div className="text-right">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/40">
                   Question
                 </p>
 
@@ -272,7 +276,7 @@ export default function LessonFourCheckpointPage() {
 
             <div className="mt-7 h-2 overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-indigo-400 transition-all duration-500"
+                className="h-full rounded-full bg-[#a8f2ed]/[0.06] transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -280,7 +284,7 @@ export default function LessonFourCheckpointPage() {
         </section>
 
         {/* Question */}
-        <section className="mt-10 rounded-[2rem] border border-white/10 bg-slate-900/60 p-7 shadow-xl shadow-black/10 backdrop-blur-xl sm:p-10">
+        <section className="mt-10 rounded-none border border-white/10 bg-[#151a17] p-7 shadow-xl shadow-black/10 backdrop-blur-xl sm:p-10">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
             Question {current + 1}
           </p>
@@ -298,7 +302,7 @@ export default function LessonFourCheckpointPage() {
 
               if (selectedOption && !checked) {
                 optionClass =
-                  "border-indigo-300/30 bg-indigo-400/[0.08]";
+                  "border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06]";
               }
 
               if (checked && index === question.correct) {
@@ -324,14 +328,14 @@ export default function LessonFourCheckpointPage() {
                       setSelected(index);
                     }
                   }}
-                  className={`w-full rounded-2xl border p-5 text-left transition ${optionClass}`}
+                  className={`w-full rounded-none border p-5 text-left transition ${optionClass}`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-xs font-black text-slate-300">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border border-white/10 bg-white/5 text-xs font-black text-white/65">
                       {String.fromCharCode(65 + index)}
                     </div>
 
-                    <p className="leading-7 text-slate-300">
+                    <p className="leading-7 text-white/65">
                       {option}
                     </p>
                   </div>
@@ -342,7 +346,7 @@ export default function LessonFourCheckpointPage() {
 
           {checked && (
             <div
-              className={`mt-6 rounded-2xl border p-5 ${
+              className={`mt-6 rounded-none border p-5 ${
                 isCorrect
                   ? "border-emerald-300/20 bg-emerald-400/[0.04]"
                   : "border-red-300/20 bg-red-400/[0.04]"
@@ -356,7 +360,7 @@ export default function LessonFourCheckpointPage() {
                 {isCorrect ? "Correct" : "Not quite"}
               </p>
 
-              <p className="mt-3 leading-7 text-slate-300">
+              <p className="mt-3 leading-7 text-white/65">
                 {question.explanation}
               </p>
             </div>
@@ -365,7 +369,7 @@ export default function LessonFourCheckpointPage() {
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/learn/lesson/4"
-              className="text-sm font-semibold text-slate-500 transition hover:text-white"
+              className="text-sm font-semibold text-white/40 transition hover:text-white"
             >
               ← Back to lesson
             </Link>
@@ -375,7 +379,7 @@ export default function LessonFourCheckpointPage() {
                 type="button"
                 onClick={handleCheck}
                 disabled={selected === null}
-                className="rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-none bg-white px-5 py-3 text-sm font-bold text-[#101312] transition hover:-translate-y-0.5 hover:bg-[#a8f2ed] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Check answer
               </button>
@@ -383,7 +387,7 @@ export default function LessonFourCheckpointPage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+                className="rounded-none bg-white px-5 py-3 text-sm font-bold text-[#101312] transition hover:-translate-y-0.5 hover:bg-[#a8f2ed]"
               >
                 {current === questions.length - 1
                   ? "Finish checkpoint"
@@ -395,7 +399,7 @@ export default function LessonFourCheckpointPage() {
 
         {/* Footer note */}
         <div className="mt-10 text-center">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-white/40">
             No pressure. The goal is understanding, not memorization.
           </p>
         </div>

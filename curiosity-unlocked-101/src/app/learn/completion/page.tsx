@@ -94,21 +94,7 @@ export default async function CompletionPage({
 
   return (
     <main className="min-h-screen bg-[#101312] text-[#f0efe7]">
-      <header className="border-b border-white/10">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
-          <Link
-            href="/learn"
-            className="text-sm font-black tracking-tight transition hover:text-[#a8f2ed]"
-          >
-            CU101<span className="text-[#a8f2ed]">.</span>
-          </Link>
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">
-            Learning journal
-          </span>
-        </div>
-      </header>
-
-      <div className="mx-auto max-w-5xl px-5 pb-24 pt-14 sm:px-8 sm:pt-20">
+<div className="mx-auto max-w-5xl px-5 pb-24 pt-14 sm:px-8 sm:pt-20">
         <section className="grid gap-10 md:grid-cols-[1fr_220px] md:items-center">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a8f2ed]">

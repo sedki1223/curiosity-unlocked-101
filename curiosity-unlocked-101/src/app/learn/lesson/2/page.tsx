@@ -39,25 +39,25 @@ export default function LessonTwoPage() {
     <div className="relative min-h-screen overflow-hidden">
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-10rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl" />
+        <div className="absolute left-1/2 top-[-10rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl" />
         <div className="absolute right-[-12rem] top-[38rem] h-[28rem] w-[28rem] rounded-full bg-cyan-400/5 blur-3xl" />
-        <div className="absolute left-[-12rem] top-[80rem] h-[26rem] w-[26rem] rounded-full bg-purple-500/5 blur-3xl" />
+        <div className="absolute left-[-12rem] top-[80rem] h-[26rem] w-[26rem] rounded-full bg-[#d8ff70]/[0.06] blur-3xl" />
       </div>
 
       <main className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-8 lg:px-10">
         {/* Breadcrumb */}
-        <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+        <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/55">
           <Link href="/learn" className="transition hover:text-white">
             Learn
           </Link>
 
-          <span className="text-slate-600">/</span>
+          <span className="text-white/35">/</span>
 
           <Link href="/learn/topic" className="transition hover:text-white">
             Black Holes
           </Link>
 
-          <span className="text-slate-600">/</span>
+          <span className="text-white/35">/</span>
 
           <Link
             href="/learn/lesson-overview"
@@ -66,56 +66,56 @@ export default function LessonTwoPage() {
             Lesson 02
           </Link>
 
-          <span className="text-slate-600">/</span>
+          <span className="text-white/35">/</span>
 
-          <span className="text-slate-500">Gravity turned extreme</span>
+          <span className="text-white/40">Gravity turned extreme</span>
         </div>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/20 backdrop-blur-xl">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_25%,rgba(99,102,241,0.17),transparent_30%),radial-gradient(circle_at_20%_100%,rgba(34,211,238,0.05),transparent_28%)]" />
+        <section className="relative overflow-hidden rounded-none border border-white/10 bg-[#151a17] shadow-2xl shadow-black/20 backdrop-blur-xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_25%,rgba(168,242,237,0.17),transparent_30%),radial-gradient(circle_at_20%_100%,rgba(34,211,238,0.05),transparent_28%)]" />
 
           <div className="relative px-7 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-4xl">
                 <div className="mb-5 flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-indigo-400/20 bg-indigo-400/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-200">
+                  <span className="rounded-full border border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#a8f2ed]">
                     Lesson 02
                   </span>
 
-                  <span className="text-sm text-slate-500">•</span>
+                  <span className="text-sm text-white/40">•</span>
 
-                  <span className="text-sm font-medium text-slate-400">
+                  <span className="text-sm font-medium text-white/55">
                     7 min
                   </span>
 
-                  <span className="text-sm text-slate-500">•</span>
+                  <span className="text-sm text-white/40">•</span>
 
-                  <span className="text-sm font-medium text-slate-400">
+                  <span className="text-sm font-medium text-white/55">
                     Beginner
                   </span>
                 </div>
 
                 <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
                   Gravity turned
-                  <span className="block text-slate-400">extreme.</span>
+                  <span className="block text-white/55">extreme.</span>
                 </h1>
 
-                <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                <p className="mt-6 max-w-3xl text-lg leading-8 text-white/65">
                   We know that black holes have enormous gravitational effects.
                   But why does gravity become so extreme? The answer starts
                   with a simple combination: mass and compactness.
                 </p>
               </div>
 
-              <div className="shrink-0 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+              <div className="shrink-0 rounded-none border border-white/10 bg-white/[0.03] px-5 py-4">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
                   Progress
                 </div>
 
                 <div className="mt-2 flex items-center gap-3">
                   <div className="h-2 w-28 overflow-hidden rounded-full bg-white/10">
-                    <div className="h-full w-2/4 rounded-full bg-indigo-400" />
+                    <div className="h-full w-2/4 rounded-full bg-[#a8f2ed]/[0.06]" />
                   </div>
 
                   <span className="text-sm font-semibold text-white">
@@ -131,8 +131,8 @@ export default function LessonTwoPage() {
         <div className="mt-12 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)]">
           {/* Side rail */}
           <aside className="hidden lg:block">
-            <div className="sticky top-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            <div className="sticky top-8 rounded-none border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
                 In this lesson
               </p>
 
@@ -142,8 +142,8 @@ export default function LessonTwoPage() {
                     <div
                       className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-[11px] font-black ${
                         index === 0
-                          ? "border-indigo-300/20 bg-indigo-400/10 text-indigo-200"
-                          : "border-white/10 bg-white/5 text-slate-500"
+                          ? "border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06] text-[#a8f2ed]"
+                          : "border-white/10 bg-white/5 text-white/40"
                       }`}
                     >
                       {section.number}
@@ -151,7 +151,7 @@ export default function LessonTwoPage() {
 
                     <p
                       className={`text-sm font-semibold ${
-                        index === 0 ? "text-white" : "text-slate-400"
+                        index === 0 ? "text-white" : "text-white/55"
                       }`}
                     >
                       {section.title}
@@ -166,11 +166,11 @@ export default function LessonTwoPage() {
             {/* Section 1 */}
             <section>
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-indigo-300/20 bg-indigo-400/10 text-sm font-black text-indigo-200">
+                <span className="flex h-9 w-9 items-center justify-center rounded-none border border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06] text-sm font-black text-[#a8f2ed]">
                   01
                 </span>
 
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a8f2ed]">
                   Mass matters
                 </p>
               </div>
@@ -179,15 +179,15 @@ export default function LessonTwoPage() {
                 Gravity gets stronger when mass gets bigger.
               </h2>
 
-              <p className="mt-6 text-lg leading-8 text-slate-300">
+              <p className="mt-6 text-lg leading-8 text-white/65">
                 At a basic level, gravity depends on two things we can picture
                 intuitively: how much mass there is and how far away you are
                 from it.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <div className="rounded-none border border-white/10 bg-[#151a17] p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/40">
                     More mass
                   </p>
 
@@ -195,13 +195,13 @@ export default function LessonTwoPage() {
                     Stronger gravity
                   </p>
 
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
+                  <p className="mt-3 text-sm leading-6 text-white/55">
                     More mass means a stronger gravitational field.
                   </p>
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <div className="rounded-none border border-white/10 bg-[#151a17] p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/40">
                     Less distance
                   </p>
 
@@ -209,14 +209,14 @@ export default function LessonTwoPage() {
                     Stronger effect
                   </p>
 
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
+                  <p className="mt-3 text-sm leading-6 text-white/55">
                     Getting closer makes the gravitational effect much more
                     intense.
                   </p>
                 </div>
 
-                <div className="rounded-3xl border border-indigo-300/15 bg-indigo-500/[0.05] p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-300">
+                <div className="rounded-none border border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06] p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#a8f2ed]">
                     Both together
                   </p>
 
@@ -224,7 +224,7 @@ export default function LessonTwoPage() {
                     Things get extreme
                   </p>
 
-                  <p className="mt-3 text-sm leading-6 text-slate-400">
+                  <p className="mt-3 text-sm leading-6 text-white/55">
                     Huge mass packed into a tiny region creates an extreme
                     environment.
                   </p>
@@ -237,7 +237,7 @@ export default function LessonTwoPage() {
             {/* Section 2 */}
             <section>
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-300/20 bg-cyan-400/10 text-sm font-black text-cyan-200">
+                <span className="flex h-9 w-9 items-center justify-center rounded-none border border-cyan-300/20 bg-cyan-400/10 text-sm font-black text-cyan-200">
                   02
                 </span>
 
@@ -250,19 +250,19 @@ export default function LessonTwoPage() {
                 The same mass can create very different conditions.
               </h2>
 
-              <p className="mt-6 text-lg leading-8 text-slate-300">
+              <p className="mt-6 text-lg leading-8 text-white/65">
                 Imagine keeping the amount of mass the same while squeezing it
                 into a smaller and smaller region.
               </p>
 
-              <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/60 p-7 sm:p-9">
+              <div className="mt-8 rounded-none border border-white/10 bg-[#151a17] p-7 sm:p-9">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                   <div className="flex-1">
-                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/40">
                       Spread out
                     </p>
 
-                    <div className="mt-4 h-24 rounded-2xl border border-white/10 bg-white/[0.03]">
+                    <div className="mt-4 h-24 rounded-none border border-white/10 bg-white/[0.03]">
                       <div className="flex h-full items-center justify-center gap-3">
                         <div className="h-12 w-12 rounded-full bg-slate-700/70" />
                         <div className="h-8 w-8 rounded-full bg-slate-700/50" />
@@ -271,22 +271,22 @@ export default function LessonTwoPage() {
                     </div>
                   </div>
 
-                  <div className="text-center text-2xl font-black text-slate-500">
+                  <div className="text-center text-2xl font-black text-white/40">
                     →
                   </div>
 
                   <div className="flex-1">
-                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-indigo-300">
+                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#a8f2ed]">
                       Extremely compact
                     </p>
 
-                    <div className="mt-4 flex h-24 items-center justify-center rounded-2xl border border-indigo-300/15 bg-indigo-500/[0.05]">
-                      <div className="h-16 w-16 rounded-full bg-black shadow-[0_0_40px_rgba(99,102,241,0.35)]" />
+                    <div className="mt-4 flex h-24 items-center justify-center rounded-none border border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06]">
+                      <div className="h-16 w-16 rounded-full bg-black shadow-[0_0_40px_rgba(168,242,237,0.35)]" />
                     </div>
                   </div>
                 </div>
 
-                <p className="mt-7 leading-7 text-slate-400">
+                <p className="mt-7 leading-7 text-white/55">
                   The important thing is not simply “more stuff.” It is how
                   much mass is packed into a given region of space.
                 </p>
@@ -298,11 +298,11 @@ export default function LessonTwoPage() {
             {/* Section 3 */}
             <section>
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-purple-300/20 bg-purple-400/10 text-sm font-black text-purple-200">
+                <span className="flex h-9 w-9 items-center justify-center rounded-none border border-[#d8ff70]/20 bg-[#d8ff70]/[0.06] text-sm font-black text-[#d8ff70]">
                   03
                 </span>
 
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-300">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d8ff70]">
                   The escape problem
                 </p>
               </div>
@@ -311,14 +311,14 @@ export default function LessonTwoPage() {
                 Now imagine trying to escape.
               </h2>
 
-              <p className="mt-6 text-lg leading-8 text-slate-300">
+              <p className="mt-6 text-lg leading-8 text-white/65">
                 Leaving a massive object means getting away from its
                 gravitational pull. The closer you are to a compact massive
                 object, the more difficult escape becomes.
               </p>
 
               <div className="mt-8 space-y-3">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <div className="rounded-none border border-white/10 bg-white/[0.03] p-5">
                   <div className="flex items-start gap-4">
                     <span className="text-xl">01</span>
 
@@ -327,14 +327,14 @@ export default function LessonTwoPage() {
                         Weak enough gravity
                       </p>
 
-                      <p className="mt-1 leading-7 text-slate-400">
+                      <p className="mt-1 leading-7 text-white/55">
                         You can escape by moving fast enough.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <div className="rounded-none border border-white/10 bg-white/[0.03] p-5">
                   <div className="flex items-start gap-4">
                     <span className="text-xl">02</span>
 
@@ -343,14 +343,14 @@ export default function LessonTwoPage() {
                         Stronger gravity
                       </p>
 
-                      <p className="mt-1 leading-7 text-slate-400">
+                      <p className="mt-1 leading-7 text-white/55">
                         The required escape speed gets higher.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-indigo-300/20 bg-indigo-500/[0.06] p-5">
+                <div className="rounded-none border border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06] p-5">
                   <div className="flex items-start gap-4">
                     <span className="text-xl">03</span>
 
@@ -359,7 +359,7 @@ export default function LessonTwoPage() {
                         Extreme compactness
                       </p>
 
-                      <p className="mt-1 leading-7 text-slate-400">
+                      <p className="mt-1 leading-7 text-white/55">
                         The point of no return appears. That is the event
                         horizon we met in Lesson 01.
                       </p>
@@ -374,7 +374,7 @@ export default function LessonTwoPage() {
             {/* Section 4 */}
             <section>
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-orange-300/20 bg-orange-400/10 text-sm font-black text-orange-200">
+                <span className="flex h-9 w-9 items-center justify-center rounded-none border border-orange-300/20 bg-orange-400/10 text-sm font-black text-orange-200">
                   04
                 </span>
 
@@ -387,19 +387,19 @@ export default function LessonTwoPage() {
                 Black holes are extreme because of their geometry.
               </h2>
 
-              <p className="mt-6 text-lg leading-8 text-slate-300">
+              <p className="mt-6 text-lg leading-8 text-white/65">
                 It is tempting to imagine a black hole as an object with a
                 special kind of “super gravity.” That is not the best mental
                 model.
               </p>
 
-              <div className="mt-8 rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] p-7 sm:p-9">
+              <div className="mt-8 rounded-none border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] p-7 sm:p-9">
                 <p className="text-2xl font-black leading-relaxed text-white sm:text-3xl">
                   The key is that enough mass has been compressed into a small
                   enough region to create an event horizon.
                 </p>
 
-                <p className="mt-5 leading-7 text-slate-400">
+                <p className="mt-5 leading-7 text-white/55">
                   From there, the geometry of spacetime becomes the central
                   story. That is what we will explore next.
                 </p>
@@ -407,8 +407,8 @@ export default function LessonTwoPage() {
             </section>
 
             {/* Quick check */}
-            <section className="mt-16 rounded-[2rem] border border-indigo-300/15 bg-indigo-500/[0.05] p-7 sm:p-9">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-300">
+            <section className="mt-16 rounded-none border border-[#a8f2ed]/20 bg-[#a8f2ed]/[0.06] p-7 sm:p-9">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#a8f2ed]">
                 Quick check
               </p>
 
@@ -417,22 +417,22 @@ export default function LessonTwoPage() {
               </h2>
 
               <div className="mt-7 space-y-3">
-                <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-5">
-                  <p className="text-slate-300">
+                <div className="rounded-none border border-white/10 bg-[#101312] p-5">
+                  <p className="text-white/65">
                     A. It has magical gravity that automatically pulls in
                     everything.
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.04] p-5">
+                <div className="rounded-none border border-emerald-400/20 bg-emerald-400/[0.04] p-5">
                   <p className="font-semibold text-white">
                     B. A huge amount of mass is compressed into an extremely
                     compact region, producing an event horizon.
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-5">
-                  <p className="text-slate-300">
+                <div className="rounded-none border border-white/10 bg-[#101312] p-5">
+                  <p className="text-white/65">
                     C. It contains no mass at all.
                   </p>
                 </div>
@@ -453,24 +453,24 @@ export default function LessonTwoPage() {
                 {takeaways.map((takeaway, index) => (
                   <div
                     key={takeaway}
-                    className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                    className="flex gap-4 rounded-none border border-white/10 bg-white/[0.03] p-5"
                   >
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-xs font-black text-slate-300">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-none border border-white/10 bg-white/5 text-xs font-black text-white/65">
                       {index + 1}
                     </div>
 
-                    <p className="leading-7 text-slate-300">{takeaway}</p>
+                    <p className="leading-7 text-white/65">{takeaway}</p>
                   </div>
                 ))}
               </div>
             </section>
 
             {/* Navigation */}
-            <section className="relative mt-16 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-7 sm:p-10">
-              <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-indigo-500/10 blur-3xl" />
+            <section className="relative mt-16 overflow-hidden rounded-none border border-white/10 bg-[#151a17] p-7 sm:p-10">
+              <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl" />
 
               <div className="relative">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a8f2ed]">
                   Lesson 02 complete
                 </p>
 
@@ -478,7 +478,7 @@ export default function LessonTwoPage() {
                   Next stop: the event horizon.
                 </h2>
 
-                <p className="mt-4 max-w-2xl leading-7 text-slate-400">
+                <p className="mt-4 max-w-2xl leading-7 text-white/55">
                   You now know why compactness matters. Next we can finally
                   zoom in on the boundary that defines a black hole.
                 </p>
@@ -486,21 +486,21 @@ export default function LessonTwoPage() {
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Link
                     href="/learn/lesson"
-                    className="inline-flex items-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                    className="inline-flex items-center rounded-none border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                   >
                     ← Previous lesson
                   </Link>
 
                   <Link
                     href="/learn/lesson-overview"
-                    className="inline-flex items-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                    className="inline-flex items-center rounded-none border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                   >
                     Lesson overview
                   </Link>
 
                   <button
                     type="button"
-                    className="inline-flex items-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+                    className="inline-flex items-center rounded-none bg-white px-5 py-3 text-sm font-bold text-[#101312] transition hover:-translate-y-0.5 hover:bg-[#a8f2ed]"
                   >
                     Next lesson →
                   </button>
@@ -515,7 +515,7 @@ export default function LessonTwoPage() {
 
               <p className="mx-auto mt-4 max-w-2xl text-2xl font-black leading-relaxed text-white sm:text-3xl">
                 Make it simple first.
-                <span className="block text-slate-500">
+                <span className="block text-white/40">
                   Then make it deep.
                 </span>
               </p>

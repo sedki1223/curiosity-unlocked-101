@@ -9,8 +9,8 @@ const subjects = [
     description:
       "Black holes, stars, planets, and the ridiculous scale of everything beyond Earth.",
     symbol: "✦",
-    color: "text-violet-300",
-    glow: "bg-violet-400/[0.11]",
+    color: "text-[#a8f2ed]",
+    glow: "bg-[#a8f2ed]/[0.06]",
   },
   {
     title: "Everyday Science",
@@ -36,7 +36,7 @@ export default function ExplorePage() {
   return (
     <div className="relative overflow-hidden">
       <div className="grid-fade pointer-events-none absolute inset-x-0 top-0 h-[720px]" />
-      <div className="ambient-orb absolute -right-48 top-20 h-[34rem] w-[34rem] rounded-full bg-violet-400/[0.08]" />
+      <div className="ambient-orb absolute -right-48 top-20 h-[34rem] w-[34rem] rounded-full bg-[#a8f2ed]/[0.06]" />
       <div className="ambient-orb absolute -left-44 top-[30rem] h-[28rem] w-[28rem] rounded-full bg-cyan-300/[0.055]" />
 
       <main className="mx-auto max-w-7xl px-5 pb-24 pt-10 sm:px-8 lg:px-10">
@@ -48,18 +48,18 @@ export default function ExplorePage() {
 
             <h1 className="mt-5 text-[3.5rem] font-semibold leading-[.92] tracking-[-0.06em] text-white sm:text-6xl lg:text-[6.3rem]">
               Start with the
-              <span className="block text-slate-600">
+              <span className="block text-white/35">
                 question that wins.
               </span>
             </h1>
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/55 sm:text-lg">
               You do not need a subject first. Start with the thing you noticed.
               Then follow it wherever the explanation takes you.
             </p>
           </div>
 
-          <div className="glass-card relative hidden w-64 overflow-hidden rounded-[1.7rem] p-5 sm:block">
+          <div className="glass-card relative hidden w-64 overflow-hidden rounded-none p-5 sm:block">
             <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-cyan-300/[0.08] blur-2xl" />
 
             <div className="relative flex items-center gap-4">
@@ -74,7 +74,7 @@ export default function ExplorePage() {
               </div>
 
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-600">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">
                   Curio&apos;s rule
                 </p>
 
@@ -91,7 +91,7 @@ export default function ExplorePage() {
             <Link
               key={subject.title}
               href="#questions"
-              className="glass-card group relative overflow-hidden rounded-[1.8rem] p-6 transition duration-400 hover:-translate-y-1.5 hover:border-white/15"
+              className="glass-card group relative overflow-hidden rounded-none p-6 transition duration-400 hover:-translate-y-1.5 hover:border-white/15"
             >
               <div
                 className={`absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl ${subject.glow}`}
@@ -100,12 +100,12 @@ export default function ExplorePage() {
               <div className="relative">
                 <div className="flex items-start justify-between">
                   <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.035] text-lg ${subject.color}`}
+                    className={`flex h-11 w-11 items-center justify-center rounded-none border border-white/10 bg-white/[0.035] text-lg ${subject.color}`}
                   >
                     {subject.symbol}
                   </div>
 
-                  <span className="text-slate-700 transition group-hover:text-slate-400">
+                  <span className="text-white/30 transition group-hover:text-white/55">
                     ↗
                   </span>
                 </div>
@@ -120,7 +120,7 @@ export default function ExplorePage() {
                   {subject.title}
                 </h2>
 
-                <p className="mt-3 text-sm leading-6 text-slate-500">
+                <p className="mt-3 text-sm leading-6 text-white/40">
                   {subject.description}
                 </p>
               </div>
@@ -131,7 +131,7 @@ export default function ExplorePage() {
         <section id="questions" className="mt-20 scroll-mt-24">
           <div>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8f2ed]">
                 Question deck
               </p>
 
@@ -139,7 +139,7 @@ export default function ExplorePage() {
                 Do not browse. Get curious.
               </h2>
 
-              <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-slate-500">
+              <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-white/40">
                 Search a question. Filter by the kind of curiosity it belongs
                 to. Follow the ones that already have a path.
               </p>
@@ -152,11 +152,11 @@ export default function ExplorePage() {
         </section>
 
         <section className="mt-20 grid gap-5 lg:grid-cols-[1.15fr_.85fr]">
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.08] bg-gradient-to-br from-violet-400/[0.09] via-white/[0.02] to-cyan-300/[0.06] p-7 sm:p-9">
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-violet-400/[0.07] blur-3xl" />
+          <div className="relative overflow-hidden rounded-none border border-white/[0.08] bg-gradient-to-br from-[#a8f2ed]/[0.08] via-white/[0.02] to-cyan-300/[0.06] p-7 sm:p-9">
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#a8f2ed]/[0.06] blur-3xl" />
 
             <div className="relative">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8f2ed]">
                 A deeper path
               </p>
 
@@ -164,21 +164,21 @@ export default function ExplorePage() {
                 The short answer is not always the interesting one.
               </h2>
 
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/55">
                 When a question keeps pulling at you, move from a quick idea
                 into a full learning trail.
               </p>
 
               <Link
                 href="/learn"
-                className="mt-7 inline-flex items-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+                className="mt-7 inline-flex items-center rounded-none bg-white px-5 py-3 text-sm font-bold text-[#101312] transition hover:-translate-y-0.5 hover:bg-[#a8f2ed]"
               >
                 Open the learning hub <span className="ml-2">→</span>
               </Link>
             </div>
           </div>
 
-          <div className="glass-card rounded-[2rem] p-7 sm:p-9">
+          <div className="glass-card rounded-none p-7 sm:p-9">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
               Coming alive
             </p>
@@ -193,15 +193,15 @@ export default function ExplorePage() {
                   key={item}
                   className="flex items-center gap-4 border-b border-white/[0.06] pb-4 last:border-b-0 last:pb-0"
                 >
-                  <span className="text-[10px] font-semibold text-slate-700">
+                  <span className="text-[10px] font-semibold text-white/30">
                     0{index + 1}
                   </span>
 
-                  <span className="text-sm font-semibold text-slate-300">
+                  <span className="text-sm font-semibold text-white/65">
                     {item}
                   </span>
 
-                  <span className="ml-auto rounded-full border border-white/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.15em] text-slate-600">
+                  <span className="ml-auto rounded-full border border-white/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.15em] text-white/35">
                     Next
                   </span>
                 </div>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   checkQuizAnswer,
   completeLesson,
@@ -52,12 +52,8 @@ export default function QuizClient({ lesson }: QuizClientProps) {
   const questions: QuizQuestion[] = quiz.questions;
   const question: QuizQuestion = questions[currentQuestion];
 
-  const progress = useMemo(
-    () =>
-      Math.round(
-        ((currentQuestion + 1) / questions.length) * 100,
-      ),
-    [currentQuestion, questions.length],
+  const progress = Math.round(
+    ((currentQuestion + 1) / questions.length) * 100,
   );
 
   function getOptionClasses(option: string): string {
@@ -141,7 +137,7 @@ export default function QuizClient({ lesson }: QuizClientProps) {
       setProgressError(
         completionError instanceof Error
           ? completionError.message
-          : "We couldn't save your progress.",
+          : "We couldn&apos;t save your progress.",
       );
 
       setFinished(true);
@@ -190,7 +186,7 @@ export default function QuizClient({ lesson }: QuizClientProps) {
 
             {progressError && (
               <p className="mx-auto mt-4 max-w-lg text-sm text-amber-300">
-                Your quiz is complete, but we couldn't save your progress.
+                Your quiz is complete, but we couldn&apos;t save your progress.
                 {isSignedIn ? " You can still continue." : ""}
               </p>
             )}
